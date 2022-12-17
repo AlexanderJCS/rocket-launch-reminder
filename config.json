@@ -1,0 +1,6 @@
+{
+  "remind_on_startup": true,
+  "remind_before_launch": true,
+  "remind_before_launch_mins": 10,
+  "refresh_secs": 30
+}
