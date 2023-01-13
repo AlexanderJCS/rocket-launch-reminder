@@ -84,7 +84,7 @@ class RocketReminder:
         self.get_launches()
 
         for launch in self.launches:
-            if datetime.datetime.now() - launch.time < datetime.timedelta(days=1) and \
+            if launch.time - datetime.datetime.now() < datetime.timedelta(days=1) and \
                     launch.time > datetime.datetime.now():
 
                 # .day doesn't work if the launch is exactly 1 month from now to the day,
