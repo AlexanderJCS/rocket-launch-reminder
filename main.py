@@ -1,4 +1,4 @@
-from winotify import Notification, audio
+import notifypy
 import requests
 
 from dataclasses import dataclass
@@ -53,6 +53,16 @@ class RocketReminder:
 
         self.get_launches()
 
+    @staticmethod
+    def get_rocket_image(rocket_name: str):
+        rocket_name = rocket_name.lower()
+
+        for key, value in CONFIG["rocket_image_paths"].items():
+            if key.lower() in rocket_name:
+                return value
+
+        return CONFIG["rocket_image_paths"].get("noimage")
+
     def get_launches(self):
         raw_data = requests.get("https://fdo.rocketlaunch.live/json/launches/next/5").json()
 
@@ -84,25 +94,26 @@ class RocketReminder:
         self.get_launches()
 
         for launch in self.launches:
-            if launch.time - datetime.datetime.now() < datetime.timedelta(days=1) and \
+            now = datetime.datetime.now()
+
+            if launch.time.day == now.day or launch.time.day == (now + datetime.timedelta(days=1)).day and \
                     launch.time > datetime.datetime.now():
 
                 # .day doesn't work if the launch is exactly 1 month from now to the day,
                 # but it doesn't really matter since it only allows launches from today or tomorrow
                 launch_day_relative = "today" if datetime.datetime.now().day == launch.time.day else "tomorrow"
 
-                reminder = Notification(
-                    app_id="Launch Today",
-                    title=f"{launch.provider} {launch.rocket} launch {launch_day_relative} at "
-                          f"{launch.time.strftime('%H:%M')}",
-                    msg=f"{launch.description} | Data by RocketLaunch.Live",
-                    duration="long"
-                )
+                reminder = notifypy.Notify()
 
-                reminder.set_audio(audio.SMS, loop=False)
-                reminder.add_actions(label="Launch Video", launch=launch.link)
+                reminder.application_name = "Rocket Launch Reminder"
+                reminder.title = f"{launch.provider} {launch.rocket} launch {launch_day_relative} at " \
+                                 f"{launch.time.strftime('%H:%M')}"
+                reminder.message = f"From RocketLaunch.live: \"{launch.description}\""
 
-                reminder.show()
+                icon_path = self.get_rocket_image(launch.rocket)
+                reminder.icon = icon_path
+
+                reminder.send(block=False)
 
     def update(self):
         self.get_launches()
@@ -115,17 +126,12 @@ class RocketReminder:
 
                 self.launch_reminders[launch.id] = True
 
-                reminder = Notification(
-                    app_id="Launch Reminder",
-                    title=f"{launch.provider} {launch.rocket} launch in {t_minus // 60} mins",
-                    msg=f"{launch.description} | Data by RocketLaunch.Live",
-                    duration="long"
-                )
+                reminder = notifypy.Notify()
+                reminder.application_name = "Rocket Launch Reminder"
+                reminder.title = f"{launch.provider} {launch.rocket} launch in {t_minus // 60} mins"
+                reminder.message = f"RocketLaunch.live: \"{launch.description}\""
 
-                reminder.set_audio(audio.LoopingAlarm2, loop=False)
-                reminder.add_actions(label="Launch Video", launch=launch.link)
-
-                reminder.show()
+                reminder.send(block=False)
 
 
 def main():

@@ -1,6 +1,40 @@
 {
+  "sounds": {
+    "windows_launch_today_sound": null,
+    "windows_launch_soon_sound": null,
+
+    "mac_launch_today_sound": null,
+    "mac_launch_soon_sound": null,
+
+    "linux_launch_today_sound": null,
+    "linux_launch_soon_sound": null
+  },
+
   "remind_on_startup": true,
   "remind_before_launch": true,
   "remind_before_launch_mins": 10,
-  "refresh_secs": 30
+  "refresh_secs": 30,
+
+  "rocket_image_paths": {
+    "noimage": "images/noimage.jpg",
+
+    "atlas": "images/atlas_v.jpg",
+    "electron": "images/electron.jpg",
+    "virgin": "images/virgin_orbit.jpg",
+    "falcon 9": "images/falcon_9.jpg",
+    "falcon heavy": "images/falcon_heavy.jpg",
+    "sls": "images/sls.jpg",
+
+    "proton": "images/proton.jpg",
+    "soyuz": "images/soyuz.jpg",
+
+    "pslv": "images/pslv.jpg",
+    "gslv": "images/gslv.jpg",
+    "lvm": "images/lvm.jpg",
+
+    "ariane": "images/ariane.jpg",
+    "vega": "images/vega.jpg",
+
+    "long march": "images/long_march.jpg"
+  }
 }
