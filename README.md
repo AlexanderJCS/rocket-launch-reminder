@@ -1,9 +1,11 @@
 # rocket-launch-reminder
-A program that reminds you around 10 minutes before a rocket launch and reminds you of the rocket launches today on program startup. This is project compatible with windows only and is intended for personal use.
+A program that reminds you around 10 minutes before a rocket launch and reminds you of the rocket launches today on program startup. This is project compatible with windows, linux, and mac.
 
-It notifies you through the notification center on Windows:
+Here is an example of a notification from the program on Windows:
 
-![image](https://user-images.githubusercontent.com/98898166/212238843-76ee3fd2-0958-4b92-978b-5ab22b1bba85.png)
+![image](https://user-images.githubusercontent.com/98898166/212386683-7a555c44-6f34-4ade-839a-4c127383e490.png)
+
+*Operating systems other than Windows are not tested and are not guaranteed to work. If it does not work on your operating system, please open an issue.*
 
 # Installing Dependencies
 
@@ -12,7 +14,7 @@ Install dependencies using the command:
 $ pip install requests notifypy
 ```
 
-# Setting up the program to run on startup
+# Setting up the program to run on startup (Windows)
 
 To make this program run on startup, first clone this repository. Then, change the file extension of `main.py` to `.pyw` (so the entire filename would look like `main.pyw`). This means the program does not open a console window.
 
