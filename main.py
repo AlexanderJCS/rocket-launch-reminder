@@ -2,8 +2,8 @@ from winotify import Notification, audio
 import requests
 
 from dataclasses import dataclass
-from datetime import datetime
 
+import datetime
 import time
 import json
 
@@ -69,7 +69,7 @@ class RocketReminder:
 
             launches.append(Launch(
                 id=launch["id"],
-                time=datetime.fromtimestamp(int(launch["sort_date"])),
+                time=datetime.datetime.fromtimestamp(int(launch["sort_date"])),
                 provider=launch["provider"]["name"],
                 rocket=launch["vehicle"]["name"],
                 launch_site=launch_site,
@@ -84,12 +84,17 @@ class RocketReminder:
         self.get_launches()
 
         for launch in self.launches:
-            if launch.time.date() == datetime.now().date() and \
-                    launch.time > datetime.now():
+            if datetime.datetime.now() - launch.time < datetime.timedelta(days=1) and \
+                    launch.time > datetime.datetime.now():
+
+                # .day doesn't work if the launch is exactly 1 month from now to the day,
+                # but it doesn't really matter since it only allows launches from today or tomorrow
+                launch_day_relative = "today" if datetime.datetime.now().day == launch.time.day else "tomorrow"
 
                 reminder = Notification(
                     app_id="Launch Today",
-                    title=f"{launch.provider} {launch.rocket} launch today at {launch.time.strftime('%H:%M')}",
+                    title=f"{launch.provider} {launch.rocket} launch {launch_day_relative} at "
+                          f"{launch.time.strftime('%H:%M')}",
                     msg=f"{launch.description} | Data by RocketLaunch.Live",
                     duration="long"
                 )
