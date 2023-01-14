@@ -11,7 +11,7 @@ Here is an example of a notification from the program on Windows:
 
 Install dependencies using the command:
 ```shell
-$ pip install requests notifypy
+$ pip install requests notify-py
 ```
 
 # Setting up the program to run on startup (Windows)
