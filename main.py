@@ -110,8 +110,7 @@ class RocketReminder:
                                  f"{launch.time.strftime('%H:%M')}"
                 reminder.message = f"From RocketLaunch.live: \"{launch.description}\""
 
-                icon_path = self.get_rocket_image(launch.rocket)
-                reminder.icon = icon_path
+                reminder.icon = self.get_rocket_image(launch.rocket)
 
                 reminder.send(block=False)
 
@@ -130,6 +129,7 @@ class RocketReminder:
                 reminder.application_name = "Rocket Launch Reminder"
                 reminder.title = f"{launch.provider} {launch.rocket} launch in {t_minus // 60} mins"
                 reminder.message = f"RocketLaunch.live: \"{launch.description}\""
+                reminder.icon = self.get_rocket_image(launch.rocket)
 
                 reminder.send(block=False)
 
