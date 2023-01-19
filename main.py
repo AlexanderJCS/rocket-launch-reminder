@@ -96,8 +96,8 @@ class RocketReminder:
         for launch in self.launches:
             now = datetime.datetime.now()
 
-            if launch.time.day == now.day or launch.time.day == (now + datetime.timedelta(days=1)).day and \
-                    launch.time > datetime.datetime.now():
+            if launch.time.day in [now.day, (now + datetime.timedelta(days=1)).day] \
+                    and launch.time > datetime.datetime.now():
 
                 # .day doesn't work if the launch is exactly 1 month from now to the day,
                 # but it doesn't really matter since it only allows launches from today or tomorrow
@@ -107,7 +107,7 @@ class RocketReminder:
 
                 reminder.application_name = "Rocket Launch Reminder"
                 reminder.title = f"{launch.provider} {launch.rocket} launch {launch_day_relative} at " \
-                                 f"{launch.time.strftime('%H:%M')}"
+                                     f"{launch.time.strftime('%H:%M')}"
                 reminder.message = f"From RocketLaunch.live: \"{launch.description}\""
 
                 reminder.icon = self.get_rocket_image(launch.rocket)
