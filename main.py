@@ -107,7 +107,8 @@ class RocketReminder:
 
                 reminder.application_name = "Rocket Launch Reminder"
                 reminder.title = f"{launch.provider} {launch.rocket} launch {launch_day_relative} at " \
-                                     f"{launch.time.strftime('%H:%M')}"
+                    f"{launch.time.strftime('%H:%M')}"
+
                 reminder.message = f"From RocketLaunch.live: \"{launch.description}\""
 
                 reminder.icon = self.get_rocket_image(launch.rocket)
