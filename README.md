@@ -5,8 +5,6 @@ Here is an example of a notification from the program on Windows:
 
 ![image](https://user-images.githubusercontent.com/98898166/212386683-7a555c44-6f34-4ade-839a-4c127383e490.png)
 
-*Operating systems other than Windows are not tested and are not guaranteed to work. If it does not work on your operating system, please open an issue.*
-
 # Installing Dependencies
 
 Install dependencies using the command:
@@ -21,6 +19,8 @@ To make this program run on startup, first clone this repository. Then, change t
 Once done, open Run with Win + R and type `shell:startup`. Finally, add a shortcut to your `main.pyw` file.
 
 # Disclaimer
+
+Operating systems other than Windows are not tested and are not guaranteed to work. If it does not work on your operating system, please open an issue.
 
 I do not own any images or data that shows in notifications.
 
